@@ -1,0 +1,10 @@
+﻿CREATE TABLE [dbo].[Class]
+(
+	[ClassID] INT NOT NULL,
+	[ClusterID] INT NOT NULL,
+	[Day] NVARCHAR(9) NOT NULL,
+	[StartTime] TIME NOT NULL,
+	[EndTime] TIME NOT NULL,
+	PRIMARY KEY (ClassID),
+	FOREIGN KEY (ClusterID) REFERENCES Cluster
+)
