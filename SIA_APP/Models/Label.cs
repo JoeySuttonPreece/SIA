@@ -20,6 +20,6 @@ namespace SIA_APP.Models
         public int ClassID { get; set; }
         public string Name { get; set; }
 
-        public virtual Class Class { get; set; }
+        public Class Class { get; set; }
     }
 }

@@ -18,6 +18,6 @@ namespace SIA_APP.Models
         public int ClusterID { get; set; }
         public string Code { get; set; }
 
-        public virtual Cluster Cluster { get; set; }
+        public Cluster Cluster { get; set; }
     }
 }

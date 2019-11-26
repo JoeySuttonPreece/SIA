@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-clusters',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./clusters.component.css']
 })
 export class ClustersComponent implements OnInit {
+  clustersRaw: string;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    this.http.get('https://group2table3.azurewebsites.net/api/clusters').subscribe((val) => {console.log('1'); console.log(val); console.log('2')});
   }
 
 }

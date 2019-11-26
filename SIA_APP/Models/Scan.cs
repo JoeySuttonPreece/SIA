@@ -28,7 +28,7 @@ namespace SIA_APP.Models
         public float Lat { get; set; }
         public float Long { get; set; }
 
-        public virtual Class Class { get; set; }
-        public virtual Student Student { get; set; }
+        public Class Class { get; set; }
+        public Student Student { get; set; }
     }
 }

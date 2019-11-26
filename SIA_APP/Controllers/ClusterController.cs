@@ -26,6 +26,7 @@ namespace SIA_APP.Controllers
         {
             return await _context.Cluster
                 .Include(i => i.Units)
+                .Include(i => i.Classes)
                 .ToListAsync();
         }
 

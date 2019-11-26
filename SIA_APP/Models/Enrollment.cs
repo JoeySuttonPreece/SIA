@@ -19,7 +19,7 @@ namespace SIA_APP.Models
         public int ClassID { get; set; }
         public string Barcode { get; set; }
 
-        public virtual Class Class { get; set; }
-        public virtual Student Student { get; set; }
+        public Class Class { get; set; }
+        public Student Student { get; set; }
     }
 }

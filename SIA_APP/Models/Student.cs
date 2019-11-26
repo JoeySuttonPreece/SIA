@@ -21,8 +21,6 @@ namespace SIA_APP.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public virtual Class Class { get; set; }
-
         public ICollection<Enrollment> Enrollments { get; set; }
         public ICollection<Scan> Scans { get; set; }
     }

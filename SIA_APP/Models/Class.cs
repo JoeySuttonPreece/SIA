@@ -22,7 +22,7 @@ namespace SIA_APP.Models
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
 
-        public virtual Cluster Cluster { get; set; }
+        public Cluster Cluster { get; set; }
 
         public ICollection<Enrollment> Enrollments { get; set; }
         public ICollection<Label> Labels { get; set; }
