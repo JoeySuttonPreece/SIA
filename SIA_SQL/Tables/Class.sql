@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Class]
 (
-	[ClassID] INT NOT NULL,
+	[ClassID] INT IDENTITY NOT NULL,
 	[ClusterID] INT NOT NULL,
 	[Day] NVARCHAR(9) NOT NULL,
 	[StartTime] TIME NOT NULL,

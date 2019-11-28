@@ -20,12 +20,20 @@ namespace SIA_APP
                 .HasKey(e => new { e.ClassID });
 
             modelBuilder.Entity<Class>()
+                .Property(e => e.ClassID)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Class>()
                 .HasOne(a => a.Cluster)
                 .WithMany(b => b.Classes);
 
 
             modelBuilder.Entity<Cluster>()
                 .HasKey(e => new { e.ClusterID });
+
+            modelBuilder.Entity<Cluster>()
+                .Property(e => e.ClusterID)
+                .ValueGeneratedOnAdd();
 
 
             modelBuilder.Entity<Enrollment>()

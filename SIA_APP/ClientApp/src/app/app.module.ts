@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { ClustersComponent } from './clusters/clusters.component';
+import { ClusterComponent } from './cluster/cluster.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    ClustersComponent
+    ClustersComponent,
+    ClusterComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -23,7 +25,7 @@ import { ClustersComponent } from './clusters/clusters.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'clusters', component: ClustersComponent },
-      { path: 'cluster/:id', component: ClustersComponent },
+      { path: 'cluster/:id', component: ClusterComponent },
     ])
   ],
   providers: [],

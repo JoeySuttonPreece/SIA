@@ -25,16 +25,18 @@ namespace SIA_APP.Controllers
         public async Task<ActionResult<IEnumerable<Cluster>>> GetCluster()
         {
             return await _context.Cluster
-                .Include(i => i.Units)
-                .Include(i => i.Classes)
                 .ToListAsync();
+            
+            //return results.ConvertAll(result => new { result.ClusterID, result.Name });
         }
 
-        // GET: api/Clusters/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Cluster>> GetCluster(int id)
         {
-            var cluster = await _context.Cluster.FindAsync(id);
+            var cluster = await _context.Cluster
+                .Include(c => c.Units)
+                .Include(c => c.Classes)
+                .FirstAsync(c => c.ClusterID == id);
 
             if (cluster == null)
             {
@@ -44,7 +46,6 @@ namespace SIA_APP.Controllers
             return cluster;
         }
 
-        // PUT: api/Clusters/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
@@ -76,7 +77,6 @@ namespace SIA_APP.Controllers
             return NoContent();
         }
 
-        // POST: api/Clusters
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
@@ -88,7 +88,6 @@ namespace SIA_APP.Controllers
             return CreatedAtAction("GetCluster", new { id = cluster.ClusterID }, cluster);
         }
 
-        // DELETE: api/Clusters/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Cluster>> DeleteCluster(int id)
         {

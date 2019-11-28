@@ -25,17 +25,18 @@ namespace SIA_APP.Controllers
         public async Task<ActionResult<IEnumerable<Class>>> GetClasses()
         {
             return await _context.Class
-                .Include(c => c.Cluster)
-                .Include(c => c.Enrollments)
-                .Include(c => c.Labels)
-                .Include(c => c.Scans)
                 .ToListAsync();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Class>> GetClass(int id)
         {
-            var @class = await _context.Class.FindAsync(id);
+            var @class = await _context.Class
+                .Include(c => c.Cluster)
+                .Include(c => c.Enrollments)
+                .Include(c => c.Labels)
+                .Include(c => c.Scans)
+                .FirstAsync(c => c.ClassID == id);
 
             if (@class == null)
             {
