@@ -1,0 +1,4 @@
+<input type="password" [(ngModel)]="password">
+<input type="button" value="Set Password" (click)="setPassword()">
+
+<div *ngIf="setRecently > 0">Password Set!</div>

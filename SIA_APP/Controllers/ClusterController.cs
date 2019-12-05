@@ -22,8 +22,13 @@ namespace SIA_APP.Controllers
         }
 
         [HttpGet("~/api/clusters")]
-        public async Task<ActionResult<IEnumerable<Cluster>>> GetCluster()
+        public async Task<ActionResult<IEnumerable<Cluster>>> GetCluster([FromQuery] string secret)
         {
+            if (!AuthHelper.validate(secret))
+            {
+                return Unauthorized();
+            }
+
             return await _context.Cluster
                 .ToListAsync();
             
@@ -31,8 +36,13 @@ namespace SIA_APP.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Cluster>> GetCluster(int id)
+        public async Task<ActionResult<Cluster>> GetCluster([FromQuery] string secret, int id)
         {
+            if (!AuthHelper.validate(secret))
+            {
+                return Unauthorized();
+            }
+
             var cluster = await _context.Cluster
                 .Include(c => c.Units)
                 .Include(c => c.Classes)
@@ -49,8 +59,13 @@ namespace SIA_APP.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCluster(int id, Cluster cluster)
+        public async Task<IActionResult> PutCluster([FromQuery] string secret, int id, Cluster cluster)
         {
+            if (!AuthHelper.validate(secret))
+            {
+                return Unauthorized();
+            }
+
             if (id != cluster.ClusterID)
             {
                 return BadRequest();
@@ -80,8 +95,13 @@ namespace SIA_APP.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Cluster>> PostCluster(Cluster cluster)
+        public async Task<ActionResult<Cluster>> PostCluster([FromQuery] string secret, Cluster cluster)
         {
+            if (!AuthHelper.validate(secret))
+            {
+                return Unauthorized();
+            }
+
             _context.Cluster.Add(cluster);
             await _context.SaveChangesAsync();
 
@@ -89,8 +109,13 @@ namespace SIA_APP.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Cluster>> DeleteCluster(int id)
+        public async Task<ActionResult<Cluster>> DeleteCluster([FromQuery] string secret, int id)
         {
+            if (!AuthHelper.validate(secret))
+            {
+                return Unauthorized();
+            }
+
             var cluster = await _context.Cluster.FindAsync(id);
             if (cluster == null)
             {

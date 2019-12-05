@@ -22,15 +22,26 @@ namespace SIA_APP.Controllers
         }
 
         [HttpGet("~/api/classes")]
-        public async Task<ActionResult<IEnumerable<Class>>> GetClasses()
+        public async Task<ActionResult<IEnumerable<Class>>> GetClasses([FromQuery] string secret)
         {
+            if (!AuthHelper.validate(secret))
+            {
+                return Unauthorized();
+            }
+
             return await _context.Class
+                .Include(c => c.Cluster)
                 .ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Class>> GetClass(int id)
+        public async Task<ActionResult<Class>> GetClass([FromQuery] string secret, int id)
         {
+            if (!AuthHelper.validate(secret))
+            {
+                return Unauthorized();
+            }
+
             var @class = await _context.Class
                 .Include(c => c.Cluster)
                 .Include(c => c.Enrollments)
@@ -49,8 +60,13 @@ namespace SIA_APP.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutClass(int id, Class @class)
+        public async Task<IActionResult> PutClass([FromQuery] string secret, int id, Class @class)
         {
+            if (!AuthHelper.validate(secret))
+            {
+                return Unauthorized();
+            }
+
             if (id != @class.ClassID)
             {
                 return BadRequest();
@@ -80,8 +96,13 @@ namespace SIA_APP.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Class>> PostClass(Class @class)
+        public async Task<ActionResult<Class>> PostClass([FromQuery] string secret, Class @class)
         {
+            if (!AuthHelper.validate(secret))
+            {
+                return Unauthorized();
+            }
+
             _context.Class.Add(@class);
             await _context.SaveChangesAsync();
 
@@ -89,8 +110,13 @@ namespace SIA_APP.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Class>> DeleteClass(int id)
+        public async Task<ActionResult<Class>> DeleteClass([FromQuery] string secret, int id)
         {
+            if (!AuthHelper.validate(secret))
+            {
+                return Unauthorized();
+            }
+
             var @class = await _context.Class.FindAsync(id);
             if (@class == null)
             {

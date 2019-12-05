@@ -1,6 +1,8 @@
 <h1>
   {{ cluster.name }}
 </h1>
-<ng-template *ngIf="cluster.classes">
-classes
-</ng-template>
+<div *ngFor="let class of cluster.classes">
+  <div [routerLink]="['/class', class.clusterID]">
+    {{class.day}} {{class.startTime}} - {{class.startTime}}
+  </div>
+</div>

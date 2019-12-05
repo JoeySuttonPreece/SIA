@@ -7,11 +7,13 @@ import { ClusterService } from '../services/cluster.service';
   styleUrls: ['./clusters.component.css']
 })
 export class ClustersComponent implements OnInit {
-  clusters;
+  clusters: object;
 
   constructor(
     private clusterService: ClusterService
-  ) { }
+  ) {
+    this.clusters = {};
+  }
 
   ngOnInit() {
     this.clusters = this.clusterService.getClusters();

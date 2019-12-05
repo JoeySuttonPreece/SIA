@@ -1,0 +1,8 @@
+<h1>
+  Classes
+</h1>
+<div *ngFor="let class of classes | async">
+  <div [routerLink]="['/class', class.clusterID]">
+    {{class.cluster.name}} {{class.day}} {{class.startTime}} - {{class.startTime}}
+  </div>
+</div>

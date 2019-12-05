@@ -19,7 +19,7 @@ export class ClusterComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
-      this.clusterService.getCluster(params.id).then((val) => {this.cluster = val; console.log(val)});
+      this.clusterService.getCluster(params.id).then((val) => this.cluster = val);
     });
   }
 }

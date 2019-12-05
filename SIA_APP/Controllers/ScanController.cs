@@ -22,8 +22,13 @@ namespace SIA_APP.Controllers
         }
 
         [HttpGet("~/api/scans")]
-        public async Task<ActionResult<IEnumerable<Scan>>> GetScan()
+        public async Task<ActionResult<IEnumerable<Scan>>> GetScan([FromQuery] string secret)
         {
+            if (!AuthHelper.validate(secret))
+            {
+                return Unauthorized();
+            }
+
             return await _context.Scan
                 .Include(s => s.Class)
                 .Include(s => s.Student)
@@ -31,8 +36,13 @@ namespace SIA_APP.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Scan>> GetScan(int id)
+        public async Task<ActionResult<Scan>> GetScan([FromQuery] string secret, int id)
         {
+            if (!AuthHelper.validate(secret))
+            {
+                return Unauthorized();
+            }
+
             var scan = await _context.Scan.FindAsync(id);
 
             if (scan == null)
@@ -46,8 +56,13 @@ namespace SIA_APP.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutScan(int id, Scan scan)
+        public async Task<IActionResult> PutScan([FromQuery] string secret, int id, Scan scan)
         {
+            if (!AuthHelper.validate(secret))
+            {
+                return Unauthorized();
+            }
+
             if (id != scan.ClassID)
             {
                 return BadRequest();
@@ -76,9 +91,14 @@ namespace SIA_APP.Controllers
 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPost]
-        public async Task<ActionResult<Scan>> PostScan(Scan scan)
+        [HttpPost("~/api/attendance")]
+        public async Task<ActionResult<Scan>> PostScan([FromQuery] string secret, Scan scan)
         {
+            if (!AuthHelper.validate(secret))
+            {
+                return Unauthorized();
+            }
+
             _context.Scan.Add(scan);
             try
             {
@@ -100,8 +120,13 @@ namespace SIA_APP.Controllers
         }
         
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Scan>> DeleteScan(int id)
+        public async Task<ActionResult<Scan>> DeleteScan([FromQuery] string secret, int id)
         {
+            if (!AuthHelper.validate(secret))
+            {
+                return Unauthorized();
+            }
+
             var scan = await _context.Scan.FindAsync(id);
             if (scan == null)
             {
