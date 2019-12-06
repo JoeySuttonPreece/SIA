@@ -10,12 +10,18 @@ export class ClustersComponent implements OnInit {
   clusters: object;
 
   constructor(
-    private clusterService: ClusterService
+    private cluster: ClusterService
   ) {
     this.clusters = {};
   }
 
   ngOnInit() {
-    this.clusters = this.clusterService.getClusters();
+    this.clusters = this.cluster.getClusters();
+  }
+
+  delete(id: number) {
+    console.log(id);
+
+    this.cluster.deleteCluster(id);
   }
 }

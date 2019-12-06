@@ -34,4 +34,18 @@ export class ClusterService {
   getCluster(id: number) {
     return this.http.get('api/cluster/' + id, this.auth.authObj()).toPromise();
   }
+
+  createCluster(name: string) {
+    this.http.post('api/cluster/', { name: name }, this.auth.authObj())
+    .toPromise()
+    .then((value) => this.updateClusters())
+    .catch((error) => console.log(error));
+  }
+
+  deleteCluster(id: number) {
+    this.http.delete('api/cluster/' + id, this.auth.authObj())
+    .toPromise()
+    .then((value) => this.updateClusters())
+    .catch((error) => console.log(error));
+  }
 }

@@ -8,14 +8,6 @@ namespace SIA_APP.Models
 {
     public class Enrollment
     {
-        //   [ClassID] INT NOT NULL,
-	       // [Barcode] NVARCHAR(11),
-
-	       // PRIMARY KEY(ClassID, Barcode),
-	       // FOREIGN KEY(ClassID) REFERENCES[Class],
-	       // FOREIGN KEY(Barcode) REFERENCES Student
-        //)
-
         public int ClassID { get; set; }
         public string Barcode { get; set; }
 

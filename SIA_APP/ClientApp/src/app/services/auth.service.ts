@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class AuthService {
   password: string
   constructor() {
-    this.password = 'password';
+    this.password = '';
   }
 
   authObj() {

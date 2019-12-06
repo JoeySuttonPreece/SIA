@@ -1,0 +1,3 @@
+<h1>Create Cluster</h1>
+<input [(ngModel)]="name" (keyup)="$event.code == 'Enter' ? create() : null">
+<input type="button" value="Create" (click)="create()">

@@ -2,7 +2,8 @@
   {{ cluster.name }}
 </h1>
 <div *ngFor="let class of cluster.classes">
-  <div [routerLink]="['/class', class.clusterID]">
+  <div [routerLink]="['/class', class.classID]">
     {{class.day}} {{class.startTime}} - {{class.startTime}}
   </div>
 </div>
+<app-create-class [iD]="cluster.clusterID"></app-create-class>

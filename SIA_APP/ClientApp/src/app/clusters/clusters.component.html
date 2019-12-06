@@ -1,8 +1,8 @@
-<h1>
-  Clusters
-</h1>
+<app-create-cluster></app-create-cluster>
+<h1>Clusters</h1>
 <div *ngFor="let cluster of clusters | async">
-  <div [routerLink]="['/cluster', cluster.clusterID]">
+  <button (click)="delete(cluster.clusterID)">X</button>
+  <span [routerLink]="['/cluster', cluster.clusterID]">
     {{cluster.name}}
-  </div>
+  </span>
 </div>

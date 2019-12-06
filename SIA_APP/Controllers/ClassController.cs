@@ -34,6 +34,29 @@ namespace SIA_APP.Controllers
                 .ToListAsync();
         }
 
+        [HttpGet("~/classes")]
+        public async Task<ActionResult<ClassesMap>> GetClassesQuindance()
+        {
+            List<Class> results = _context.Class
+                .Include(c => c.Cluster)
+                .Include(c => c.Labels)
+                .ToList();
+
+            return new ClassesMap() {
+                Classes = results.Select(@class =>
+                    new ClassMap()
+                    {
+                        ClassId = @class.ClassID,
+                        Day = @class.Day,
+                        StartTime = @class.StartTime,
+                        EndTime = @class.EndTime,
+                        Name = @class.Cluster.Name,
+                        Labels = @class.Labels.Select(label => label.Name).ToList()
+                    }
+                ).ToList()
+            };
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Class>> GetClass([FromQuery] string secret, int id)
         {

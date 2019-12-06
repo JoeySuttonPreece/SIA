@@ -1,0 +1,15 @@
+<h1>Create Cluster</h1>
+<div>
+  Day
+  <input [(ngModel)]="day" (keyup)="$event.code == 'Enter' ? create() : null">
+</div>
+<div>
+  Start Time
+  <input [(ngModel)]="startTime" (keyup)="$event.code == 'Enter' ? create() : null">
+</div>
+<div>
+  End Time
+  <input [(ngModel)]="endTime" (keyup)="$event.code == 'Enter' ? create() : null">
+</div>
+<input type="button" value="Create" (click)="create()">
+

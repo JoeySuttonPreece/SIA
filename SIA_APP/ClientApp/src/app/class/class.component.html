@@ -1,1 +1,18 @@
-<p>class works!</p>
+<h1>{{ class.cluster.name }}</h1>
+<h2>Scans</h2>
+<div class="scans">
+  <div>Name</div>
+  <div>Status</div>
+  <div>Student Number</div>
+  <ng-container *ngFor="let scan of scans">
+    <div>
+      {{ scan.student.firstName + " " + scan.student.lastName }}
+    </div>
+    <div>
+        {{ scan.status }}
+    </div>
+    <div>
+      {{ scan.student.number }}
+    </div>
+  </ng-container>
+</div>

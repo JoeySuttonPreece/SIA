@@ -12,6 +12,9 @@ import { ClusterComponent } from './cluster/cluster.component';
 import { LoginComponent } from './login/login.component';
 import { ClassesComponent } from './classes/classes.component';
 import { ClassComponent } from './class/class.component';
+import { CreateClusterComponent } from './create-cluster/create-cluster.component';
+import { AttendanceComponent } from './attendance/attendance.component';
+import { CreateClassComponent } from './create-class/create-class.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { ClassComponent } from './class/class.component';
     ClusterComponent,
     LoginComponent,
     ClassesComponent,
-    ClassComponent
+    ClassComponent,
+    CreateClusterComponent,
+    AttendanceComponent,
+    CreateClassComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -32,7 +38,7 @@ import { ClassComponent } from './class/class.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'clusters', component: ClustersComponent },
       { path: 'cluster/:id', component: ClusterComponent },
-      { path: 'classes', component: ClassesComponent },
+      { path: 'class-list', component: ClassesComponent },
       { path: 'class/:id', component: ClassComponent },
       { path: 'login', component: LoginComponent },
     ])

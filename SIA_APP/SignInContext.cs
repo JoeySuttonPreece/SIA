@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SIA_APP.Models;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace SIA_APP
 {
@@ -66,6 +67,19 @@ namespace SIA_APP
             modelBuilder.Entity<Scan>()
                 .HasOne(a => a.Student)
                 .WithMany(b => b.Scans);
+
+            var converter = new ValueConverter<double, decimal>(
+                v => (decimal)v,
+                v => (double)v
+            );
+
+            modelBuilder.Entity<Scan>()
+                .Property(e => e.Lat)
+                .HasConversion(converter);
+
+            modelBuilder.Entity<Scan>()
+                .Property(e => e.Long)
+                .HasConversion(converter);
 
 
             modelBuilder.Entity<Student>()

@@ -34,4 +34,18 @@ export class ClassService {
   getClass(id: number) {
     return this.http.get('api/class/' + id, this.auth.authObj()).toPromise();
   }
+
+  createClass(clusterID: number, day: string, startTime: string, endTime: string) {
+    this.http.post('api/class/', { clusterID, day, startTime, endTime }, this.auth.authObj())
+    .toPromise()
+    .then((value) => this.updateClasses())
+    .catch((error) => console.log(error));
+  }
+
+  deleteClass(id: number) {
+    this.http.delete('api/class/' + id, this.auth.authObj())
+    .toPromise()
+    .then((value) => this.updateClasses())
+    .catch((error) => console.log(error));
+  }
 }

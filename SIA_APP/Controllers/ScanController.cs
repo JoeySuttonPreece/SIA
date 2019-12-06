@@ -22,7 +22,7 @@ namespace SIA_APP.Controllers
         }
 
         [HttpGet("~/api/scans")]
-        public async Task<ActionResult<IEnumerable<Scan>>> GetScan([FromQuery] string secret)
+        public async Task<ActionResult<IEnumerable<Scan>>> GetScans([FromQuery] string secret)
         {
             if (!AuthHelper.validate(secret))
             {
@@ -33,6 +33,38 @@ namespace SIA_APP.Controllers
                 .Include(s => s.Class)
                 .Include(s => s.Student)
                 .ToListAsync();
+        }
+
+        [HttpGet("~/api/scans/class/{id}")]
+        public async Task<ActionResult<IEnumerable<ScanOutMap>>> GetScansForClass([FromQuery] string secret, int id)
+        {
+            if (!AuthHelper.validate(secret))
+            {
+                return Unauthorized();
+            }
+
+            List<Scan> results = _context.Scan
+                .Include(s => s.Student)
+                .Where(s => s.ClassID == id)
+                .ToList();
+
+            List<ScanOutMap> scanOutMaps = new List<ScanOutMap>();
+
+            for (int i = 0; i < results.Count(); i++)
+            {
+                scanOutMaps.Add(new ScanOutMap() {
+                    Barcode = results[i].Barcode,
+                    Class = results[i].Class,
+                    ClassID = results[i].ClassID,
+                    Lat = results[i].Lat,
+                    Long = results[i].Long,
+                    Time = results[i].Time,
+                    Student = results[i].Student,
+                    Status = "SignedIn"
+                });
+            }
+
+            return scanOutMaps;
         }
 
         [HttpGet("{id}")]
@@ -91,13 +123,17 @@ namespace SIA_APP.Controllers
 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPost("~/api/attendance")]
-        public async Task<ActionResult<Scan>> PostScan([FromQuery] string secret, Scan scan)
+        [HttpPost("~/attendance")]
+        public async Task<ActionResult<ScanResponse>> PostScan(ScanInMap attendance)
         {
-            if (!AuthHelper.validate(secret))
-            {
-                return Unauthorized();
-            }
+
+            Scan scan = new Scan() {
+                Barcode = attendance.Barcode,
+                Time = attendance.Time,
+                ClassID = attendance.ClassId,
+                Lat = attendance.Location.Latitude,
+                Long = attendance.Location.Longitude
+            };
 
             _context.Scan.Add(scan);
             try
@@ -116,7 +152,7 @@ namespace SIA_APP.Controllers
                 }
             }
 
-            return CreatedAtAction("GetScan", new { id = scan.ClassID }, scan);
+            return new ScanResponse() { ActionPerformed = "SignedIn", FirstName = "Joey" /*scan.Student.FirstName*/ };
         }
         
         [HttpDelete("{id}")]
